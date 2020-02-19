@@ -7,10 +7,10 @@ import { hideShowCart } from "../../redux/cart/cart.actions";
 
 import './cart-icon.styles.scss'
 
-const CartIcon = ({ hideShowCart }) => (
+const CartIcon = ({ hideShowCart, cartItems }) => (
     <div className='cart-icon' onClick={hideShowCart}>
         <ShoppingIcon className='shopping-icon'/>
-        <span className='item-count'>0</span>
+        <span className='item-count'>{cartItems.length}</span>
     </div>
 );
 
@@ -18,4 +18,8 @@ const mapDispatchToProps = dispatch => ({
     hideShowCart: () => dispatch(hideShowCart())
 });
 
-export default connect(null, mapDispatchToProps)(CartIcon);
+const mapStateToProps = ({cart: {cartItems}}) => ({
+    cartItems: cartItems
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
