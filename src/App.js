@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Redirect, Route, Switch} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 
 import HomePage from "pages/homepage/homepage.component";
@@ -40,19 +40,21 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <Header />
-                <Switch>
-                    <Route exact path='/' component={HomePage}/>
-                    <Route path='/shop' component={ShopPage}/>
-                    <Route exact path='/checkout' component={CheckoutPage}/>
-                    <Route exact path='/sign-in' render={() => this.props.currentUser ?
-                        (<Redirect to={'/'}/>)
-                        :
-                        (<SignInAndSignUp/>)
-                    } />
-                </Switch>
-            </div>
+            <HashRouter basename='/'>
+                <div>
+                    <Header />
+                    <Switch>
+                        <Route exact path='/' component={HomePage}/>
+                        <Route path='/shop' component={ShopPage}/>
+                        <Route exact path='/checkout' component={CheckoutPage}/>
+                        <Route exact path='/sign-in' render={() => this.props.currentUser ?
+                            (<Redirect to={'/'}/>)
+                            :
+                            (<SignInAndSignUp/>)
+                        } />
+                    </Switch>
+                </div>
+            </HashRouter>
         );
     }
 }
